@@ -29,6 +29,7 @@ void print_triangle(triangle_t *triangle, char *msg)
  */
 int sanity_check_triangle(SDL_Surface *surface, triangle_t *triangle)
 {
+    return 1;
     if (triangle->sx1 < 0 || triangle->sx1 >= surface->w ||
         triangle->sx2 < 0 || triangle->sx2 >= surface->w ||
         triangle->sx3 < 0 || triangle->sx3 >= surface->w ||
@@ -175,7 +176,6 @@ void draw_triangle(SDL_Surface *surface, triangle_t *triangle)
     
     /* Translate. */
     translate_triangle(triangle);
-    
     /* Determine bounding box */
     calculate_triangle_bounding_box(triangle);
 
@@ -185,20 +185,31 @@ void draw_triangle(SDL_Surface *surface, triangle_t *triangle)
         //sprint_triangle(triangle, "Triangle outside surface boundaries");
         return;
     }
+    int color = TRIANGLE_PENCOLOR;
+    if (triangle->sx1 <= 1)
+        triangle->sx1 = 1;
+    if (triangle->sx2 <= 1)
+        triangle->sx2 = 1;
+    if (triangle->sx3 <= 1)
+        triangle->sx3 = 1;
+    if (triangle->sx1 == 1 && triangle->sx2 == 1 && triangle->sx3 == 1) {
+        color = triangle->fillcolor;
+    }
+    
 
     /* Draw triangle */
     draw_line(surface, 
              triangle->sx1, triangle->sy1,
              triangle->sx2, triangle->sy2,
-             TRIANGLE_PENCOLOR);
+             color);
     draw_line(surface, 
              triangle->sx2, triangle->sy2,
              triangle->sx3, triangle->sy3,
-             TRIANGLE_PENCOLOR);
+             color);
     draw_line(surface, 
              triangle->sx3, triangle->sy3,
              triangle->sx1, triangle->sy1,
-             TRIANGLE_PENCOLOR);
+             color);
 
     /* Fill triangle */
     fill_triangle(surface, triangle);

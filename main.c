@@ -7,6 +7,7 @@
 #include "list.h"
 #include "teapot_data.h"
 #include "sphere_data.h"
+#include "deathBall_data.h"
 #include "object.h"
 #include "time.h"
 
@@ -17,12 +18,11 @@
 /* screen width height and FPS*/
 const int screen_w = 1600;
 const int screen_h = 900;
-const int white = 999999999;
+const int white = 0xeeeeee;
 #define TICK_INTERVAL 1000 / 60;
 static unsigned int next_time;
 
-void ballIsDead(list_t *list, object_t *ball, int gravity);
-void ballPhysics(object_t *ball, int gravity);
+void death_Ball(object_t* deathBall);
 
 /*
  * Clear the surface by filling it with 0x00000000(black).
@@ -81,12 +81,15 @@ void bouncing_balls(SDL_Renderer *renderer, SDL_Texture *texture, SDL_Surface *s
     SDL_Event event;
     next_time = SDL_GetTicks() + TICK_INTERVAL;
 
+    object_t *deathBall = create_object(surface, deathBall_model, DEATHBALL_NUMTRIANGLES, 210, 500, 0);
+
     while(1) {
+        clear_screen(surface);
         draw_line(surface, 1, 300, screen_w - 1, 300, white);
         draw_line(surface, 1, screen_h - 100, screen_w-1, screen_h-100, white);
 
 
-
+        death_Ball(deathBall);
 
 
 
@@ -107,6 +110,10 @@ void bouncing_balls(SDL_Renderer *renderer, SDL_Texture *texture, SDL_Surface *s
     }
 }
 
+void death_Ball(object_t* deathBall) {
+
+    draw_object(deathBall);
+}
 
 int main(void)
 {
