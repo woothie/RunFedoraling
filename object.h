@@ -26,7 +26,7 @@ struct object {
 /*
  * Return a newly created object based on the arguments provided.
  */
-object_t *create_object(SDL_Surface *surface, triangle_t *triangles, int numtriangles);
+object_t *create_object(SDL_Surface *surface, triangle_t *triangles, int numtriangles, int tx,int ty, int speed);
     
 
 /*

@@ -1,4 +1,6 @@
 #define SPHERE_NUMTRIANGLES    478
+#include "triangle.h"
+
 triangle_t sphere_model[] = {
 {
 .x1=-1,

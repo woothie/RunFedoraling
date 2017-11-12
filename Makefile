@@ -8,7 +8,7 @@ TEST_APP = testlist
 TEST_SOURCE = list_tester.c list.c
 
 SOURCE = main.c triangle.c drawline.c object.c list.c
-HEADER = drawline.h triangle.h object.h list.h teapot_data.h sphere_data.h
+HEADER = drawline.h triangle.h object.h list.h teapot_data.h sphere_data.h deathBall_data.h
 
 include Makefile.in
 

@@ -7,14 +7,15 @@
  */
 Uint32 get_pixel(SDL_Surface *surface, int x, int y)
 {
-    Uint32 *pixels = surface->pixels,
+    int *pixels = surface->pixels,
            idx = x + y*surface->w;
-
+    /*
     if (x >= surface->w || x < 0 ||
         y >= surface->h || y < 0) {
          fprintf(stderr, "Accessing pixel outside of surface, check translation or scale\n");
          return 0;
     }
+    */
 
     /* Get pixel */
     return pixels[idx];
@@ -25,15 +26,16 @@ Uint32 get_pixel(SDL_Surface *surface, int x, int y)
  */
 void set_pixel(SDL_Surface *surface, int x, int y, Uint32 color)
 {
-    Uint32 *pixels = surface->pixels,
+    int *pixels = surface->pixels,
            idx = x + y*surface->w;
-
     /* Verify that pixel is inside of screen */
+    /*
     if (x >= surface->w || x < 0 ||
         y >= surface->h || y < 0) {
          fprintf(stderr, "Plotting pixel outside of surface, check translation or scale\n");
          return;
-    }
+        }
+    */
 
     /* Set pixel */
     pixels[idx] = color;
@@ -72,6 +74,8 @@ void draw_line(SDL_Surface *surface, int x1, int y1, int x2, int y2, Uint32 colo
     dx = dx*2;
     x = x1;
     y = y1;
+
+    
     set_pixel(surface, x, y, color);
     if (dx > dy) {
         fraction = dy - (dx/2);
